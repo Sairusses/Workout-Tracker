@@ -24,6 +24,7 @@ class WorkoutCard extends StatelessWidget{
     final Workout workout = workoutFromMap(workoutMap);
 
     return Card(
+      color: Colors.white,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 2.5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

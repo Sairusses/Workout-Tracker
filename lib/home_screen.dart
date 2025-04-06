@@ -11,15 +11,24 @@ class HomeScreen extends StatefulWidget{
 class HomeScreenState extends State<HomeScreen>{
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: WorkoutCard(workoutMap: <String, dynamic>{
-        'id': 1,
-        'title': 'Push-ups',
-        'reps': 10,
-        'sets': 4,
-        'date': DateTime.now().toString(),
-        'type': 'reps',
-      }),
+    return Scaffold(
+      backgroundColor: Colors.grey[100],
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        backgroundColor: Colors.black87,
+        elevation: 4,
+        child: const Icon(Icons.add, color: Colors.white),
+      ),
+      body: Center(
+        child: WorkoutCard(workoutMap: <String, dynamic>{
+          'id': 1,
+          'title': 'Push-ups',
+          'reps': 10,
+          'sets': 4,
+          'date': DateTime.now().toString(),
+          'type': 'reps',
+        }),
+      ),
     );
   }
 }
