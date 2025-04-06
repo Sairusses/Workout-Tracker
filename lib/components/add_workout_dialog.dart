@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:workout_tracker/components/custom_text_widgets.dart';
 
 import 'custom_text_form_field.dart';
 class AddWorkoutDialog extends StatefulWidget{
@@ -10,8 +11,7 @@ class AddWorkoutDialog extends StatefulWidget{
 
 class AddWorkoutDialogState extends State<AddWorkoutDialog>{
   final TextEditingController titleController = TextEditingController();
-  final TextEditingController repsController = TextEditingController();
-  final TextEditingController setsController = TextEditingController();
+  final TextEditingController typeController = TextEditingController();
   final List<String> workOutTypes = ['Reps', 'Duration'];
 
   String? selectedWorkoutType;
@@ -57,7 +57,7 @@ class AddWorkoutDialogState extends State<AddWorkoutDialog>{
               children: [
                 Flexible(
                   child: CustomTextFormField(
-                    controller: repsController,
+                    controller: typeController,
                     labelText: selectedWorkoutType ?? 'Select Type First',
                     hint: selectedWorkoutType == 'Reps' ? 'Reps' : selectedWorkoutType == 'Duration' ? 'Minutes' : "Type",
                     textInputType: TextInputType.number,
@@ -135,6 +135,21 @@ class AddWorkoutDialogState extends State<AddWorkoutDialog>{
                 ),
               ],
             ),
+            SizedBox(height: 20),
+            Flexible(
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black87,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  minimumSize: const Size.fromHeight(50),
+                ),
+                child: MediumText(text: 'Submit', color: Colors.white,)
+              ),
+            )
           ],
         ),
       ),
