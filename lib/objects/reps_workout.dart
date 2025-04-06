@@ -7,6 +7,7 @@ class RepsWorkout extends Workout {
     super.id,
     required super.title,
     required this.reps,
+    required super.sets,
     required super.date,
   });
 
@@ -16,6 +17,7 @@ class RepsWorkout extends Workout {
       'id': id,
       'title': title,
       'reps': reps,
+      'sets': sets,
       'date': date.toIso8601String(),
       'type': workoutType,
     };
@@ -29,6 +31,7 @@ class RepsWorkout extends Workout {
       id: map['id'],
       title: map['title'],
       reps: map['reps'],
+      sets: map['sets'],
       date: DateTime.parse(map['date']),
     );
   }

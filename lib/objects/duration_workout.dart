@@ -7,6 +7,7 @@ class DurationWorkout extends Workout {
     super.id,
     required super.title,
     required this.duration,
+    required super.sets,
     required super.date,
   });
 
@@ -16,6 +17,7 @@ class DurationWorkout extends Workout {
       'id': id,
       'title': title,
       'duration': duration,
+      'sets': sets,
       'date': date.toIso8601String(),
       'type': workoutType,
     };
@@ -23,13 +25,14 @@ class DurationWorkout extends Workout {
 
   @override
   String get workoutType => 'duration';
-  
+
 
   factory DurationWorkout.fromMap(Map<String, dynamic> map) {
     return DurationWorkout(
       id: map['id'],
       title: map['title'],
       duration: map['duration'],
+      sets: map['sets'],
       date: DateTime.parse(map['date']),
     );
   }
