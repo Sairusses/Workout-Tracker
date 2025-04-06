@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:workout_tracker/components/workout_card.dart';
 
+import 'components/add_workout_dialog.dart';
+
 class HomeScreen extends StatefulWidget{
   const HomeScreen({super.key});
 
@@ -14,7 +16,9 @@ class HomeScreenState extends State<HomeScreen>{
     return Scaffold(
       backgroundColor: Colors.grey[100],
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: (){
+          showDialog(context: context, builder: (context) => const AddWorkoutDialog());
+        },
         backgroundColor: Colors.black87,
         elevation: 4,
         child: const Icon(Icons.add, color: Colors.white),
