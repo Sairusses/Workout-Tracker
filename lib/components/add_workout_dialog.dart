@@ -59,7 +59,7 @@ class AddWorkoutDialogState extends State<AddWorkoutDialog>{
                   child: CustomTextFormField(
                     controller: repsController,
                     labelText: selectedWorkoutType ?? 'Select Type First',
-                    hint: selectedWorkoutType ?? 'Type',
+                    hint: selectedWorkoutType == 'Reps' ? 'Enter reps' : selectedWorkoutType == 'Duration' ? 'Enter minutes' : "Select Type First",
                     textInputType: TextInputType.number,
                   ),
                 ),
@@ -133,7 +133,6 @@ class AddWorkoutDialogState extends State<AddWorkoutDialog>{
                     ),
                   ],
                 ),
-
               ],
             ),
           ],
