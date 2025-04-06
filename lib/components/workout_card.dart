@@ -30,7 +30,7 @@ class WorkoutCard extends StatelessWidget{
       child: ListTile(
         leading: Icon(
           workout.workoutType == 'reps' ? Icons.fitness_center : Icons.timer,
-          color: Colors.black54
+          color: Colors.black
         ),
         title: Text(workout.title),
         subtitle: workout is RepsWorkout

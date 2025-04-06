@@ -18,21 +18,21 @@ class HomeState extends State<Home>{
           });
         },
         selectedIndex: currentPageIndex,
-        indicatorColor: Colors.blueGrey,
+        indicatorColor: Colors.grey,
         destinations: const <Widget>[
           NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
+            selectedIcon: Icon(Icons.home, color: Colors.black,),
+            icon: Icon(Icons.home_outlined, color: Colors.black),
             label: 'Home',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.calendar_month_rounded),
-            icon: Icon(Icons.calendar_month_outlined),
+            selectedIcon: Icon(Icons.calendar_month_rounded, color: Colors.black),
+            icon: Icon(Icons.calendar_month_outlined, color: Colors.black),
             label: 'Calendar',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.fitness_center_rounded),
-            icon: Icon(Icons.fitness_center_outlined),
+            selectedIcon: Icon(Icons.fitness_center_rounded, color: Colors.black),
+            icon: Icon(Icons.fitness_center_outlined, color: Colors.black),
             label: 'Sets',
           ),
         ]
