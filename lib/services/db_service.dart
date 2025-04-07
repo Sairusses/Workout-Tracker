@@ -10,14 +10,13 @@ part 'db_service.g.dart'; // Required for code generation
 class WorkoutItems extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get title => text()();
-  IntColumn get reps => integer().nullable()();      // optional if using type = 'Duration'
-  IntColumn get duration => integer().nullable()();  // optional if using type = 'Reps'
+  IntColumn get reps => integer().nullable()();
+  IntColumn get duration => integer().nullable()();
   IntColumn get sets => integer()();
   DateTimeColumn get date => dateTime().withDefault(currentDateAndTime)();
-  TextColumn get type => text()(); // 'Reps' or 'Duration'
+  TextColumn get type => text()();
 }
 
-// The database class
 @DriftDatabase(tables: [WorkoutItems])
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
@@ -25,7 +24,6 @@ class AppDatabase extends _$AppDatabase {
   @override
   int get schemaVersion => 1;
 
-  // CRUD Operations
 
   Future<int> insertWorkout(WorkoutItemsCompanion entry) =>
       into(workoutItems).insert(entry);

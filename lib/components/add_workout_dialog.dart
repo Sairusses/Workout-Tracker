@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:workout_tracker/components/custom_text_widgets.dart';
 
+import '../services/db_service.dart';
 import 'custom_text_form_field.dart';
 class AddWorkoutDialog extends StatefulWidget{
   const AddWorkoutDialog({super.key});
@@ -17,6 +18,8 @@ class AddWorkoutDialogState extends State<AddWorkoutDialog>{
   String? selectedWorkoutType;
   late DateTime date;
   String dateString = "Set date";
+
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -206,7 +209,17 @@ class AddWorkoutDialogState extends State<AddWorkoutDialog>{
             SizedBox(height: 20),
             Flexible(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  // WorkoutItem(
+                  //   id: 0,
+                  //   title: titleController.text,
+                  //   reps: int.parse(typeController.text),
+                  //   duration: type,
+                  //   sets: 0,
+                  //   date: date,
+                  //   type: typeController.text,
+                  // );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black87,
                   foregroundColor: Colors.white,
