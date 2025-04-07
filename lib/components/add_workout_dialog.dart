@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:workout_tracker/components/custom_text_widgets.dart';
 
 import 'custom_text_form_field.dart';
@@ -13,9 +14,9 @@ class AddWorkoutDialogState extends State<AddWorkoutDialog>{
   final TextEditingController titleController = TextEditingController();
   final TextEditingController typeController = TextEditingController();
   final List<String> workOutTypes = ['Reps', 'Duration'];
-
   String? selectedWorkoutType;
-
+  late DateTime date;
+  String dateString = "Set date";
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -132,9 +133,76 @@ class AddWorkoutDialogState extends State<AddWorkoutDialog>{
                       ),
                     ),
                   ],
-                ),
-              ],
+                )
+              ]
             ),
+            SizedBox(height: 20,),
+
+            Flexible(
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
+                  minimumSize: const Size.fromHeight(50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                    side: BorderSide(color: Colors.black54),
+                  ),
+                  elevation: 2,
+                ),
+                onPressed: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2030),
+                      builder: (BuildContext context, Widget? child) {
+                        return Theme(
+                          data: ThemeData(
+                            primaryColor: Colors.white,
+                            colorScheme: ColorScheme.light(
+                              primary: Colors.black,
+                              onPrimary: Colors.white,
+                              onSurface: Colors.black,
+                            ),
+                            textButtonTheme: TextButtonThemeData(
+                              style: TextButton.styleFrom(
+                                foregroundColor: Colors.black,
+                              ),
+                            ),
+                          ),
+                          child: child!,
+                        );
+                      },
+                    );
+                    if (pickedDate != null) {
+                      setState(() {
+                        date = pickedDate;
+                        dateString = pickedDate.toString();
+                      });
+                    } else {
+                      Fluttertoast.showToast(
+                          msg: 'No date selected.',
+                          toastLength: Toast.LENGTH_LONG,
+                          backgroundColor: Colors.grey[50],
+                          textColor: Colors.black
+                      );
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.calendar_today,
+                    color: Colors.black,
+                  ),
+                  label: Text(
+                    dateString,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black
+                    ),
+                  ),
+                ),
+              ),
             SizedBox(height: 20),
             Flexible(
               child: ElevatedButton(
