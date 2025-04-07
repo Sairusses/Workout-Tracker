@@ -6,7 +6,7 @@ import 'home.dart';
 void main() {
   runApp(
     DevicePreview(
-      enabled: false,
+      enabled: kDebugMode,
       builder: (context) => const MyApp(),
     ),
   );

@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
 
-import '../objects/duration_workout.dart';
-import '../objects/reps_workout.dart';
-import '../objects/workout.dart';
-
 class WorkoutCard extends StatelessWidget{
-  final Map<String, dynamic> workoutMap;
-  const WorkoutCard({super.key, required this.workoutMap});
-
-  Workout workoutFromMap(Map<String, dynamic> map) {
-    switch (map['type']) {
-      case 'reps':
-        return RepsWorkout.fromMap(map);
-      case 'duration':
-        return DurationWorkout.fromMap(map);
-      default:
-        throw Exception('Unknown workout type');
-    }
-  }
+  final Map<String, dynamic>? workout;
+  const WorkoutCard({super.key, required this.workout});
 
   @override
   Widget build(BuildContext context) {
-    final Workout workout = workoutFromMap(workoutMap);
+
+    DateTime date = DateTime.parse(workout?['date']);
+
+    if (workout == null) {
+      return const Card(
+        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: ListTile(
+          leading: Icon(Icons.warning, color: Colors.red),
+          title: Text('Unknown workout type'),
+          subtitle: Text('Please check the data.'),
+        ),
+      );
+    }
 
     return Card(
       color: Colors.white,
@@ -30,20 +27,21 @@ class WorkoutCard extends StatelessWidget{
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ListTile(
         leading: Icon(
-          workout.workoutType == 'reps' ? Icons.fitness_center : Icons.timer,
-          color: Colors.black
+          workout?['type'] == 'reps' ? Icons.fitness_center : Icons.timer,
+          color: Colors.black,
         ),
-        title: Text(workout.title),
-        subtitle: workout is RepsWorkout
-            ? Text('${workout.reps} reps, ${workout.sets} sets')
-            : workout is DurationWorkout
-            ? Text('${(workout).duration} minutes, ${workout.sets} sets')
+        title: Text(workout?["title"]),
+        subtitle: workout?['type'] == 'reps'
+            ? Text('${workout?['reps']} reps, ${workout?['sets']} sets')
+            : workout?['type'] == 'duration'
+            ? Text('${workout?['duration']} minutes, ${workout?['sets']} sets')
             : const Text('Unknown workout'),
         trailing: Text(
-          '${workout.date.day}/${workout.date.month}/${workout.date.year}',
+          '${date.day}/${date.month}/${date.year}',
           style: const TextStyle(fontSize: 12, color: Colors.grey),
         ),
       ),
     );
   }
+
 }

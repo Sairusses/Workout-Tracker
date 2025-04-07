@@ -36,7 +36,6 @@ dependencies:
   cupertino_icons: ^1.0.8
   device_preview: ^1.2.0
   dropdown_button2: ^2.3.9
-  drift: ^2.26.0
   drift_flutter: ^0.2.4
   fluttertoast: ^8.2.12
 

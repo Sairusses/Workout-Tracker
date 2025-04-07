@@ -2,8 +2,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:workout_tracker/components/custom_text_widgets.dart';
-
-import '../services/db_service.dart';
 import 'custom_text_form_field.dart';
 class AddWorkoutDialog extends StatefulWidget{
   const AddWorkoutDialog({super.key});
@@ -13,6 +11,7 @@ class AddWorkoutDialog extends StatefulWidget{
 
 class AddWorkoutDialogState extends State<AddWorkoutDialog>{
   final TextEditingController titleController = TextEditingController();
+  final TextEditingController setsController = TextEditingController();
   final TextEditingController typeController = TextEditingController();
   final List<String> workOutTypes = ['Reps', 'Duration'];
   String? selectedWorkoutType;
@@ -51,12 +50,28 @@ class AddWorkoutDialogState extends State<AddWorkoutDialog>{
               ],
             ),
             SizedBox(height: 20),
-            CustomTextFormField(
-              controller: titleController,
-              labelText: "Title",
-              hint: "Enter workout title",
+            Row(
+              children: [
+                Flexible(
+                  child: CustomTextFormField(
+                    controller: titleController,
+                    labelText: "Title",
+                    hint: "Workout title",
+                  ),
+                ),
+                SizedBox(width: 20,),
+                SizedBox(
+                  width: 100,
+                  child: CustomTextFormField(
+                    controller: setsController,
+                    labelText: "Sets",
+                    textInputType: TextInputType.number,
+                    hint: 'Sets',
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 12),
             Row(
               children: [
                 Flexible(
@@ -70,67 +85,70 @@ class AddWorkoutDialogState extends State<AddWorkoutDialog>{
                 SizedBox(width: 20,),
                 Column(
                   children: [
-                    SizedBox(height: 12,),
-                    DropdownButtonHideUnderline(
-                      child: DropdownButton2<String>(
-                        isExpanded: true,
-                        hint: Text(
-                          selectedWorkoutType ?? 'Type',
-                          style:  TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        items: workOutTypes.map((String item) => DropdownMenuItem<String>(
-                          value: item,
-                          child: Text(
-                            item,
-                            style: const TextStyle(
+                    SizedBox(height: 17,),
+                    SizedBox(
+                      width: 100,
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton2<String>(
+                          isExpanded: true,
+                          hint: Text(
+                            selectedWorkoutType ?? 'Type',
+                            style:  TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
                             overflow: TextOverflow.ellipsis,
                           ),
-                        ))
-                            .toList(),
-                        value: selectedWorkoutType,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedWorkoutType = value;
-                          });
-                        },
-                        buttonStyleData: ButtonStyleData(
-                          height: 50,
-                          width: 120,
-                          padding: const EdgeInsets.only(left: 14, right: 14),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(
-                              color: Colors.black54,
+                          items: workOutTypes.map((String item) => DropdownMenuItem<String>(
+                            value: item,
+                            child: Text(
+                              item,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            color: Colors.white,
+                          ))
+                              .toList(),
+                          value: selectedWorkoutType,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedWorkoutType = value;
+                            });
+                          },
+                          buttonStyleData: ButtonStyleData(
+                            height: 50,
+                            width: 120,
+                            padding: const EdgeInsets.only(left: 14, right: 14),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: Colors.black54,
+                              ),
+                              color: Colors.white,
+                            ),
+                            elevation: 2,
                           ),
-                          elevation: 2,
-                        ),
-                        iconStyleData: const IconStyleData(
-                          icon: Icon(
-                            Icons.arrow_forward_ios_outlined,
+                          iconStyleData: const IconStyleData(
+                            icon: Icon(
+                              Icons.arrow_forward_ios_outlined,
+                            ),
+                            iconSize: 14,
+                            iconEnabledColor: Colors.black,
+                            iconDisabledColor: Colors.grey,
                           ),
-                          iconSize: 14,
-                          iconEnabledColor: Colors.black,
-                          iconDisabledColor: Colors.grey,
-                        ),
-                        menuItemStyleData: const MenuItemStyleData(
-                          height: 40,
-                          padding: EdgeInsets.only(left: 14, right: 14),
-                        ),
-                        dropdownStyleData: DropdownStyleData(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            color: Colors.white,
+                          menuItemStyleData: const MenuItemStyleData(
+                            height: 40,
+                            padding: EdgeInsets.only(left: 14, right: 14),
+                          ),
+                          dropdownStyleData: DropdownStyleData(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -210,15 +228,8 @@ class AddWorkoutDialogState extends State<AddWorkoutDialog>{
             Flexible(
               child: ElevatedButton(
                 onPressed: () {
-                  // WorkoutItem(
-                  //   id: 0,
-                  //   title: titleController.text,
-                  //   reps: int.parse(typeController.text),
-                  //   duration: type,
-                  //   sets: 0,
-                  //   date: date,
-                  //   type: typeController.text,
-                  // );
+
+                  Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black87,

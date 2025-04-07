@@ -210,7 +210,7 @@ packages:
     source: hosted
     version: "1.2.0"
   drift:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: drift
       sha256: "14a61af39d4584faf1d73b5b35e4b758a43008cf4c0fdb0576ec8e7032c0d9a5"
