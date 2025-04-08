@@ -67,5 +67,22 @@ class DBHelper {
     });
   }
 
-  
+  Future<void> deleteWorkout(Workout workout) async {
+    final db = await database;
+    await db.delete(
+      'workouts',
+      where: 'id = ?',
+      whereArgs: [workout.id],
+    );
+  }
+
+  Future<void> updateWorkout(Workout workout) async {
+    final db = await database;
+    await db.update(
+      'workouts',
+      workout.toMap(),
+      where: 'id = ?',
+      whereArgs: [workout.id],
+    );
+  }
 }

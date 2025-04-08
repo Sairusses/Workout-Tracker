@@ -19,7 +19,7 @@ class HomeState extends State<Home>{
           });
         },
         selectedIndex: currentPageIndex,
-        indicatorColor: Colors.grey,
+        indicatorColor: Colors.grey[100],
         destinations: const <Widget>[
           NavigationDestination(
             selectedIcon: Icon(Icons.home, color: Colors.black,),

@@ -5,13 +5,13 @@ import 'package:workout_tracker/components/custom_text_widgets.dart';
 import 'package:workout_tracker/models/workout_model.dart';
 import '../db_helper.dart';
 import 'custom_text_form_field.dart';
-class AddWorkoutDialog extends StatefulWidget{
-  const AddWorkoutDialog({super.key});
+class WorkoutDialog extends StatefulWidget{
+  const WorkoutDialog({super.key});
   @override
-  State<AddWorkoutDialog> createState() => AddWorkoutDialogState();
+  State<WorkoutDialog> createState() => WorkoutDialogState();
 }
 
-class AddWorkoutDialogState extends State<AddWorkoutDialog>{
+class WorkoutDialogState extends State<WorkoutDialog>{
   final TextEditingController titleController = TextEditingController();
   final TextEditingController setsController = TextEditingController();
   final TextEditingController typeController = TextEditingController();
@@ -201,7 +201,7 @@ class AddWorkoutDialogState extends State<AddWorkoutDialog>{
                     if (pickedDate != null) {
                       setState(() {
                         date = pickedDate;
-                        dateString = pickedDate.toString();
+                        dateString = "${date.day}/${date.month}/${date.year}";
                       });
                     } else {
                       Fluttertoast.showToast(
