@@ -1,5 +1,5 @@
 class Workout {
-  final int id;
+  final int? id;
   final String title;
   final String type;
   final int reps;
@@ -7,7 +7,7 @@ class Workout {
   final int duration;
   final DateTime date;
   const Workout({
-    required this.id,
+    this.id,
     required this.title,
     required this.type,
     required this.reps,
@@ -16,8 +16,7 @@ class Workout {
     required this.date
   });
   Map<String, dynamic> toMap() {
-    return {
-      'id': id,
+    final map = {
       'title': title,
       'type': type,
       'reps': reps,
@@ -25,5 +24,20 @@ class Workout {
       'duration': duration,
       'date': date.toIso8601String(),
     };
+    if (id != null) {
+      map['id'] = id!;
+    }
+    return map;
+  }
+  factory Workout.fromMap(Map<String, dynamic> map) {
+    return Workout(
+      id: map['id'],
+      title: map['title'],
+      type: map['type'],
+      reps: map['reps'],
+      sets: map['sets'],
+      duration: map['duration'],
+      date: DateTime.parse(map['date']),
+    );
   }
 }

@@ -2,6 +2,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:workout_tracker/components/custom_text_widgets.dart';
+import 'package:workout_tracker/models/workout_model.dart';
+import '../db_helper.dart';
 import 'custom_text_form_field.dart';
 class AddWorkoutDialog extends StatefulWidget{
   const AddWorkoutDialog({super.key});
@@ -17,7 +19,7 @@ class AddWorkoutDialogState extends State<AddWorkoutDialog>{
   String? selectedWorkoutType;
   late DateTime date;
   String dateString = "Set date";
-
+  final db = DBHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -228,8 +230,23 @@ class AddWorkoutDialogState extends State<AddWorkoutDialog>{
             Flexible(
               child: ElevatedButton(
                 onPressed: () {
-
-                  Navigator.pop(context);
+                  if (titleController.text.isEmpty || setsController.text.isEmpty || typeController.text.isEmpty || selectedWorkoutType == null || dateString == "Set date") {
+                    Fluttertoast.showToast(
+                        msg: 'Please fill in all fields.',
+                        toastLength: Toast.LENGTH_LONG,
+                        backgroundColor: Colors.grey[50],);
+                    return;
+                  }
+                  Workout workout = Workout(
+                      title: titleController.text,
+                      type: selectedWorkoutType!.toLowerCase(),
+                      reps: int.parse(typeController.text),
+                      sets: int.parse(setsController.text),
+                      duration: int.parse(typeController.text),
+                      date: date
+                  );
+                  db.insertWorkout(workout);
+                  Navigator.of(context).pop(workout);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black87,

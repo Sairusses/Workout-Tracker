@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:workout_tracker/home_screen.dart';
+import 'package:workout_tracker/screens/home_screen.dart';
 
 class Home extends StatefulWidget{
   const Home({super.key});
