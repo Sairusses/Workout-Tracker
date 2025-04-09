@@ -50,23 +50,6 @@ class DBHelper {
     );
   }
 
-  Future<List<Workout>> getWorkouts() async {
-    final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('workouts');
-
-    return List.generate(maps.length, (i) {
-      return Workout(
-        id: maps[i]['id'],
-        title: maps[i]['title'],
-        type: maps[i]['type'],
-        reps: maps[i]['reps'],
-        sets: maps[i]['sets'],
-        duration: maps[i]['duration'],
-        date: DateTime.parse(maps[i]['date']),
-      );
-    });
-  }
-
   Future<void> deleteWorkout(Workout workout) async {
     final db = await database;
     await db.delete(
@@ -85,4 +68,43 @@ class DBHelper {
       whereArgs: [workout.id],
     );
   }
+
+  Future<List<Workout>> getWorkouts() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('workouts');
+
+    return List.generate(maps.length, (i) {
+      return Workout(
+        id: maps[i]['id'],
+        title: maps[i]['title'],
+        type: maps[i]['type'],
+        reps: maps[i]['reps'],
+        sets: maps[i]['sets'],
+        duration: maps[i]['duration'],
+        date: DateTime.parse(maps[i]['date']),
+      );
+    });
+  }
+
+  Future<List<Workout>> getTodayWorkouts() async {
+    final db = await database;
+    final String today = DateTime.now().toIso8601String().split('T').first;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'workouts',
+      where: 'date LIKE ?',
+      whereArgs: ['$today%'],);
+
+    return List.generate(maps.length, (i) {
+      return Workout(
+        id: maps[i]['id'],
+        title: maps[i]['title'],
+        type: maps[i]['type'],
+        reps: maps[i]['reps'],
+        sets: maps[i]['sets'],
+        duration: maps[i]['duration'],
+        date: DateTime.parse(maps[i]['date']),
+      );
+    });
+  }
+  
 }
