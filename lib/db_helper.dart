@@ -106,5 +106,27 @@ class DBHelper {
       );
     });
   }
-  
+
+  Future<List<Workout>> getWorkoutsByDate(DateTime date) async {
+    final db = await database;
+    final String dateStr = DateTime(date.year, date.month, date.day).toIso8601String().substring(0, 10);
+    final List<Map<String, dynamic>> maps = await db.query(
+      'workouts',
+      where: "date LIKE ?",
+      whereArgs: ['$dateStr%'],
+    );
+    return List.generate(maps.length, (i) {
+      return Workout(
+        id: maps[i]['id'],
+        title: maps[i]['title'],
+        type: maps[i]['type'],
+        reps: maps[i]['reps'],
+        sets: maps[i]['sets'],
+        duration: maps[i]['duration'],
+        date: DateTime.parse(maps[i]['date']),
+      );
+    });
+  }
+
+
 }

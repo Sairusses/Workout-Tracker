@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workout_tracker/screens/calendar_screen.dart';
 import 'package:workout_tracker/screens/home_screen.dart';
 
 class Home extends StatefulWidget{
@@ -40,7 +41,7 @@ class HomeState extends State<Home>{
       ),
       body: <Widget>[
         const HomeScreen(),
-        const Center(child: Text('Calendar')),
+        const CalendarScreen(),
         const Center(child: Text('Sets')),
       ][currentPageIndex],
     );
